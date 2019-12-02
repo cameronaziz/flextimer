@@ -1,15 +1,19 @@
 import React from 'react'
 import { StyleSheet, Animated, Easing } from 'react-native'
 import { Circle, Svg } from 'react-native-svg'
+import { colors } from './utils'
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle)
 
 interface RingProps {
   strokeWidth: number
   svgWidth: number
+  timerLength: number
+  setIsEditing: (status: boolean) => void
 }
 
-const Ring: React.FunctionComponent<RingProps> = ({ svgWidth, strokeWidth }) => {
+const Ring: React.FunctionComponent<RingProps> = (props) => {
+  const { svgWidth, strokeWidth, timerLength, setIsEditing } = props
   const [isDone, setIsDone] = React.useState<boolean>(false)
   const [isRunning, setIsRunning] = React.useState<boolean>(false)
   const [percent, setPercent] = React.useState<Animated.Value>(new Animated.Value(0))
@@ -25,8 +29,8 @@ const Ring: React.FunctionComponent<RingProps> = ({ svgWidth, strokeWidth }) => 
     percent,
     {
       toValue: 100,
-      duration: 5000,
-      easing: Easing.linear
+      duration: timerLength * 1000,
+      easing: Easing.linear,
     }
   )
 
@@ -35,15 +39,8 @@ const Ring: React.FunctionComponent<RingProps> = ({ svgWidth, strokeWidth }) => 
     outputRange: [`${circumference}`, '0']
   })
 
-  const styles = StyleSheet.create({
-    svg: {
-      transform: [
-        { rotate: '-90deg'},
-      ],
-    },
-  })
-
   const onClick = () => {
+    setIsEditing(false)
     if (isDone) {
       setIsDone(false)
       setPercent(new Animated.Value(0))
@@ -75,7 +72,7 @@ const Ring: React.FunctionComponent<RingProps> = ({ svgWidth, strokeWidth }) => 
         cy={centerCoords.y}
         fill="none"
         r={radius}
-        stroke="#A9A9A9"
+        stroke={colors.gray}
         strokeWidth={strokeWidth}
       />
       <AnimatedCircle
@@ -83,7 +80,7 @@ const Ring: React.FunctionComponent<RingProps> = ({ svgWidth, strokeWidth }) => 
         cy={centerCoords.y}
         fill="none"
         r={radius}
-        stroke="#000000"
+        stroke={colors.black}
         strokeDasharray={`${circumference} ${circumference}`}
         strokeDashoffset={strokeDashoffset}
         strokeWidth={strokeWidth}
@@ -91,5 +88,15 @@ const Ring: React.FunctionComponent<RingProps> = ({ svgWidth, strokeWidth }) => 
     </Svg>
   )
 }
+
+const styles = StyleSheet.create({
+  svg: {
+    transform: [
+      {
+        rotate: '-90deg'
+      },
+    ],
+  },
+})
 
 export default Ring

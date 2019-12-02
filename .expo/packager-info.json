@@ -2,8 +2,8 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 24985,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "packagerPid": 5804,
+  "expoServerNgrokUrl": "https://yy-hpq.anonymous.flextimer.exp.direct",
+  "packagerNgrokUrl": "https://packager.yy-hpq.anonymous.flextimer.exp.direct",
+  "ngrokPid": 5814
 }

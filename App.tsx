@@ -1,20 +1,33 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, SafeAreaView } from 'react-native'
 import Ring from './src/ring'
+import TimeSelect from './src/time'
 import { dimensions } from './src/utils'
 
-// Configure the size of the SVG and the width of the stroke
+// Configure the size of the SVG, the width of the stroke and the length of time (in seconds).
 const svgWidth = dimensions.fullWidth
 const strokeWidth = 24
+const defaultTimeLength = 5
 
-export default function App() {
+const App = () => {
+  const [timerLength, setTimerLength] = React.useState(defaultTimeLength)
+  const [isEditing, setIsEditing] = React.useState(false)
+
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Ring
         strokeWidth={strokeWidth}
         svgWidth={svgWidth}
+        timerLength={timerLength}
+        setIsEditing={setIsEditing}
       />
-    </View>
+      <TimeSelect
+        defaultTimeLength={defaultTimeLength}
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
+        setTimerLength={setTimerLength}
+      />
+    </SafeAreaView>
   );
 }
 
@@ -25,4 +38,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})
+
+export default App
