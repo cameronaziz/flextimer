@@ -1,19 +1,20 @@
 import React from 'react'
 import { TouchableOpacity, StyleSheet, Text } from 'react-native'
+import AppContext from '../context'
 import { dimensions, colors } from '../utils'
 
 interface CurrentTimeProps {
   time: string
-  editTime: () => void
 }
 
 const CurrentTime: React.FunctionComponent<CurrentTimeProps> = (props) => {
-  const { editTime, time } = props
+  const { time } = props
+  const { setIsEditing } = React.useContext(AppContext)
 
   return (
     <TouchableOpacity
       style={styles.touchableOpacity}
-      onPress={editTime}
+      onPress={() => setIsEditing(true)}
     >
       <Text
         style={styles.text}

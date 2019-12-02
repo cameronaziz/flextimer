@@ -1,18 +1,17 @@
 import React from 'react'
+import AppContext from '../context'
 import CurrentTime from './current-time'
 import TimeSelect from './time-select'
+import { displayTime } from '../utils'
 
 interface TimeSelectProps {
-  defaultTimeLength: number
-  setTimerLength: (time: number) => void
-  isEditing: boolean
-  setIsEditing: (status: boolean) => void
+
 }
 
 const Time: React.FunctionComponent<TimeSelectProps> = (props) => {
-  const { defaultTimeLength, setTimerLength, isEditing, setIsEditing } = props
-  const defaultSeconds = defaultTimeLength % 60
-  const defaultMinutes = Math.floor(defaultTimeLength / 60)
+  const { isEditing, setTimerLength, timerLength } = React.useContext(AppContext)
+  const defaultSeconds = timerLength % 60
+  const defaultMinutes = Math.floor(timerLength / 60)
   const [secondsSelected, setSecondsSelected] = React.useState(defaultSeconds)
   const [minutesSelected, setminutesSelected] = React.useState(defaultMinutes)
 
@@ -28,26 +27,11 @@ const Time: React.FunctionComponent<TimeSelectProps> = (props) => {
     setTimerLength(time)
   }
 
-  const min = () => {
-    if (minutesSelected === 1) {
-      return `${minutesSelected}min`
-    }
-    return `${minutesSelected}mins`
-  }
-
-  const sec = () => {
-    if (secondsSelected === 1) {
-      return `${secondsSelected}sec`
-    }
-    return `${secondsSelected}secs`
-  }
-
-  const time = `${min()} ${sec()}`
+  const time = displayTime(minutesSelected, secondsSelected)
 
   if (!isEditing) {
     return (
       <CurrentTime
-        editTime={() => setIsEditing(true)}
         time={time}
       />
     )
