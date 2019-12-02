@@ -8,7 +8,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@types/node": "^12.12.14",
     "expo": "^35.0.0",
     "react": "16.8.3",
     "react-dom": "16.8.3",
@@ -22,11 +21,13 @@
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
+    "@types/node": "^12.12.14",
     "@types/react": "^16.8.23",
     "@types/react-native": "^0.57.65",
     "babel-preset-expo": "^7.0.0",
     "jest-expo": "^35.0.0",
     "jetifier": "^1.6.4",
+    "tslint-config-airbnb": "^5.11.2",
     "typescript": "^3.4.5"
   },
   "jest": {

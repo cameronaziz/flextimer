@@ -7,7 +7,7 @@
     "privacy": "unlisted",
     "sdkVersion": "35.0.0",
     "version": "1.0.0",
-    "entryPoint": "node_modules/expo/AppEntry.js",
+    "entryPoint": "./src/app.tsx",
     "platforms": [
       "ios",
       "android",
