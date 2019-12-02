@@ -1,36 +1,32 @@
 import React from 'react'
 import { StyleSheet, SafeAreaView } from 'react-native'
-import { AppContextProvider } from './context'
+import AppContext from './context'
 import Ring from './ring'
 import TimeSelect from './time'
-import { dimensions } from './utils'
+import ClickWrapper from './click-wrapper'
 
-// Configure the size of the SVG, the width of the stroke and the length of time (in seconds).
-const svgWidth = dimensions.fullWidth
-const strokeWidth = 24
-const defaultTimeLength = 5
 
-const Timer = () => (
-  <AppContextProvider
-    defaultTimeLength={defaultTimeLength}
-  >
-    <SafeAreaView style={styles.container}>
-      <Ring
-        strokeWidth={strokeWidth}
-        svgWidth={svgWidth}
-      />
-      <TimeSelect />
-    </SafeAreaView>
-  </AppContextProvider>
-)
+const Timer: React.FunctionComponent = () => {
+  const { dimensions } = React.useContext(AppContext)
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      flexDirection: dimensions.isPortrait ? 'column' : 'row',
+      backgroundColor: '#ffffff',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  })
+
+  return (
+    <ClickWrapper>
+      <SafeAreaView style={styles.container}>
+        <Ring />
+        <TimeSelect />
+      </SafeAreaView>
+    </ClickWrapper>
+  )
+}
 
 export default Timer

@@ -1,44 +1,33 @@
 import React from 'react'
-import { TouchableOpacity, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import AppContext from '../context'
-import { dimensions, colors } from '../utils'
+import { secondsToTime, displayTime } from '../utils'
+import { Button } from '../ui'
 
 interface CurrentTimeProps {
-  time: string
+
 }
 
-const CurrentTime: React.FunctionComponent<CurrentTimeProps> = (props) => {
-  const { time } = props
-  const { setIsEditing } = React.useContext(AppContext)
+const CurrentTime: React.FunctionComponent<CurrentTimeProps> = () => {
+  const { setIsEditing, animationTimeRemaining, dimensions } = React.useContext(AppContext)
+  const time = displayTime(secondsToTime(animationTimeRemaining))
+
+  const styles = StyleSheet.create({
+    container: {
+      width: dimensions.isPortrait ? undefined : 200,
+      height: dimensions.isPortrait ? 200 : undefined,
+    },
+  })
 
   return (
-    <TouchableOpacity
-      style={styles.touchableOpacity}
-      onPress={() => setIsEditing(true)}
-    >
-      <Text
-        style={styles.text}
-      >
-        {time}
-      </Text>
-    </TouchableOpacity>
+    <View style={styles.container}>
+      <Button
+        label={time}
+        onPress={() => setIsEditing(true)}
+        stopPropogation
+      />
+    </View>
   )
 }
-
-const styles = StyleSheet.create({
-  touchableOpacity: {
-    width: dimensions.fullWidth * 0.7,
-    color: colors.black,
-    borderRadius: 5,
-    borderWidth: 1,
-    minHeight: 60,
-    borderColor: colors.gray,
-    justifyContent: 'center',
-  },
-  text: {
-    fontSize: 25,
-    textAlign: 'center',
-  }
-})
 
 export default CurrentTime

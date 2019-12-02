@@ -2,13 +2,12 @@ import React from 'react'
 import AppContext from '../context'
 import CurrentTime from './current-time'
 import TimeSelect from './time-select'
-import { displayTime } from '../utils'
 
 interface TimeSelectProps {
 
 }
 
-const Time: React.FunctionComponent<TimeSelectProps> = (props) => {
+const Time: React.FunctionComponent<TimeSelectProps> = () => {
   const { isEditing, setTimerLength, timerLength } = React.useContext(AppContext)
   const defaultSeconds = timerLength % 60
   const defaultMinutes = Math.floor(timerLength / 60)
@@ -27,13 +26,10 @@ const Time: React.FunctionComponent<TimeSelectProps> = (props) => {
     setTimerLength(time)
   }
 
-  const time = displayTime(minutesSelected, secondsSelected)
 
   if (!isEditing) {
     return (
-      <CurrentTime
-        time={time}
-      />
+      <CurrentTime />
     )
   }
 

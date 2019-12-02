@@ -1,13 +1,9 @@
 import { Dimensions } from 'react-native'
 
-export const dimensions = {
-  fullHeight: Dimensions.get('window').height,
-  fullWidth: Dimensions.get('window').width,
-}
-
 export const colors = {
+  black: '#000000',
   gray: '#A9A9A9',
-  black: '#000000'
+  white: '#ffffff'
 }
 
 export const generateValues = (params: Utils.GenerateValuesParams): number[] => {
@@ -17,7 +13,22 @@ export const generateValues = (params: Utils.GenerateValuesParams): number[] => 
   return new Array(length).fill(0).map((x, i) => step * (i + offset))
 }
 
-export const displayTime = (minutes: number, seconds: number): string => {
+export const getDimensions = (): Utils.Dimensions => {
+  const height = Dimensions.get('window').height
+  const width = Dimensions.get('window').width
+  const dimensions = {
+    height,
+    width,
+    isPortrait: false
+  }
+  if (height > width) {
+    dimensions.isPortrait = true
+  }
+  return dimensions
+}
+
+export const displayTime = (timeToDisplay: Utils.Time): string => {
+  const { minutes, seconds } = timeToDisplay
   let time = `${minutes}min`
   if (minutes !== 1) {
     time = `${time}s`
@@ -27,4 +38,29 @@ export const displayTime = (minutes: number, seconds: number): string => {
     time = `${time}s`
   }
   return time
+}
+
+export const secondsToTime = (timerLength: number): Utils.Time => {
+  const seconds = timerLength % 60
+  const minutes = Math.floor(timerLength / 60)
+  return {
+    seconds,
+    minutes
+  }
+}
+
+export const generateCircle = (svgWidth: number, strokeWidth: number): App.Circle => {
+  const radius = (svgWidth / 2) - (strokeWidth * 2)
+  const circumference = 2 * Math.PI * radius
+  const centerCoords: App.Coords = {
+    x: svgWidth / 2,
+    y: svgWidth / 2,
+  }
+  return {
+    center: centerCoords,
+    circumference,
+    radius,
+    strokeWidth,
+    width: svgWidth,
+  }
 }
