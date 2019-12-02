@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Animated } from 'react-native'
+import { StyleSheet, Animated, Easing } from 'react-native'
 import { Circle, Svg } from 'react-native-svg'
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle)
@@ -26,6 +26,7 @@ const Ring: React.FunctionComponent<RingProps> = ({ svgWidth, strokeWidth }) => 
     {
       toValue: 100,
       duration: 5000,
+      easing: Easing.linear
     }
   )
 
